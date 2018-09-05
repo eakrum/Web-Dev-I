@@ -5,4 +5,10 @@ var {
   surfaceAreaOfSphere
 } = require("./geometry");
 
-volumeOfRectangularPrism(5, 3, 3);
+var {
+  deepEquality,
+  uniqueElements,
+  countOfEachCharacterInString
+} = require("./utilitites");
+
+countOfEachCharacterInString("dsfdsdsfs")
