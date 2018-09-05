@@ -77,7 +77,7 @@ const countOfEachCharacterInString = str => {
   let charMap = {};
   let char, i, count;
 
-  for (i = 0; i < str.length; ++i) {
+  for (i = 0; i < str.length; i++) {
     char = str[i]; //get a character store as char
 
     //get the count value for the specific char, if there is one avail. If not then it'll be undefined

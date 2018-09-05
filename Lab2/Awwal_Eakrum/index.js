@@ -11,4 +11,4 @@ var {
   countOfEachCharacterInString
 } = require("./utilitites");
 
-countOfEachCharacterInString("dsfdsdsfs")
+countOfEachCharacterInString("caat")
