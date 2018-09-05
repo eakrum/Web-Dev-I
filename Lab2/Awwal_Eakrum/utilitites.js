@@ -1,6 +1,6 @@
-const first = {a: 2, b: 3};
-const second = {a: 2, b: 4};
-const third = {a: 2, b: 3};
+const first = { a: 2, b: 3 };
+const second = { a: 2, b: 4 };
+const third = { a: 2, b: 3 };
 
 const deepEquality = (obj1, obj2) => {
   // create an array of property Names
@@ -36,7 +36,11 @@ const uniqueElements = arr => {
   return console.log("not an array");
 };
 
-console.log(deepEquality(first, second)); // false
-console.log(deepEquality(first, third)); // true
+const countOfEachCharacterInString = str => {
+  let indices = [];
+  for (let i = 0; i < str.length; i++) {
+    indices.push(str[i]);
+  }
+};
 
-const countOfEachCharacterInString = str => {};
+countOfEachCharacterInString("cat");
