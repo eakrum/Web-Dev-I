@@ -1,26 +1,27 @@
-const deepEquality = (obj1, obj2) => {
-  // Create arrays of property names
-  var obj1Props = Object.getOwnPropertyNames(obj1);
-  var obj2Props = Object.getOwnPropertyNames(obj2);
+const first = {a: 2, b: 3};
+const second = {a: 2, b: 4};
+const third = {a: 2, b: 3};
 
-  // If number of properties is different,
-  // objects are not equivalent
+const deepEquality = (obj1, obj2) => {
+  // create an array of property Names
+  let obj1Props = Object.getOwnPropertyNames(obj1);
+  let obj2Props = Object.getOwnPropertyNames(obj2);
+
+  //if number of property names are different, not equal
   if (obj1Props.length != obj2Props.length) {
-    return false;
+    return true;
   }
 
-  for (var i = 0; i < obj1Props.length; i++) {
-    var propName = obj1Props[i];
+  for (let i = 0; i < obj1Props.length; i++) {
+    let propName = obj1Props[i];
 
-    // If values of same property are not equal,
-    // objects are not equivalent
+    //if values of obj1 property not equal to obj2 property, not equal
     if (obj1[propName] !== obj2[propName]) {
       return false;
     }
   }
 
-  // If we made it this far, objects
-  // are considered equivalent
+  //if we get here then the objects are equal
   return true;
 };
 
@@ -34,5 +35,8 @@ const uniqueElements = arr => {
   }
   return console.log("not an array");
 };
+
+console.log(deepEquality(first, second)); // false
+console.log(deepEquality(first, third)); // true
 
 const countOfEachCharacterInString = str => {};
