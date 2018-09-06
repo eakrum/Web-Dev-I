@@ -152,13 +152,13 @@ try {
 }
 
 try {
-  deepEquality({ a: 1 });
+  deepEquality({ a: 1 }, function test() {});
 } catch (e) {
   console.log("Something went wrong:", e);
 }
 
 try {
-  deepEquality({ a: 1 }, function test() {});
+  deepEquality({ a: 1, b: 2 }, { a: 1 });
 } catch (e) {
   console.log("Something went wrong:", e);
 }
@@ -192,11 +192,10 @@ try {
   console.log("Something went wrong:", e);
 }
 try {
-  uniqueElements([1,1,3,4,4,5,6,7,7,3]);
+  uniqueElements([1, 1, 3, 4, 4, 5, 6, 7, 7, 3]);
 } catch (e) {
   console.log("Something went wrong:", e);
 }
-
 
 //5 test cases for char map
 try {

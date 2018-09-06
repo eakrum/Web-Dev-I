@@ -54,7 +54,7 @@ const deepEquality = (obj1, obj2) => {
 
   //if number of property names are different, not equal
   if (obj1Props.length != obj2Props.length) {
-    return console.log(`object equality: ${true} \n\n`);
+    return console.log(`object equality: ${false} \n\n`);
   }
 
   for (let i = 0; i < obj1Props.length; i++) {
