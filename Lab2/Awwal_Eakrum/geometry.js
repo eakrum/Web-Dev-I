@@ -17,15 +17,30 @@ const checkVal = (val, name) => {
   }
 };
 
+const checkSign = (val, name) => {
+  switch (Math.sign(val)) {
+    case -1:
+      throw `Got ${val} for ${name} which is a negative number, please use positive numbers only.`;
+    case 0:
+      throw `Got ${val} for ${name}, please enter a non-zero number.`;
+  }
+};
+
 const volumeOfRectangularPrism = (length, width, height) => {
+  checkSign(length, "length");
+  checkSign(width, "width");
+  checkSign(height, "height");
   checkVal(length, "length");
   checkVal(width, "width");
   checkVal(height, "height");
 
-  return console.log(`volume of prism is: ${length * width * height} \n \n ` );
+  return console.log(`volume of prism is: ${length * width * height} \n \n `);
 };
 
 const surfaceAreaOfRectangularPrism = (length, width, height) => {
+  checkSign(length, "length");
+  checkSign(width, "width");
+  checkSign(height, "height");
   checkVal(length, "length");
   checkVal(width, "width");
   checkVal(height, "height");
@@ -37,6 +52,7 @@ const surfaceAreaOfRectangularPrism = (length, width, height) => {
 };
 
 const volumeOfSphere = radius => {
+  checkSign(radius, "radius");
   checkVal(radius, "radius");
   radiusCubed = radius * radius * radius;
   return console.log(
@@ -46,6 +62,7 @@ const volumeOfSphere = radius => {
 };
 
 const surfaceAreaOfSphere = radius => {
+  checkSign(radius, "radius");
   checkVal(radius, "radius");
   radiusSquared = radius * radius;
   return console.log(

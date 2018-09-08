@@ -14,7 +14,7 @@ var {
 //cases for volume of a rectangular prism
 
 try {
-  volumeOfRectangularPrism(4, 5, "testErr");
+  volumeOfRectangularPrism(4, 5, -11);
 } catch (e) {
   console.log("Something went wrong:", e);
 }
@@ -46,7 +46,7 @@ try {
 //cases for surface area of rectangular prism
 
 try {
-  surfaceAreaOfRectangularPrism("tester", 5, 7);
+  surfaceAreaOfRectangularPrism(0, 5, 7);
 } catch (e) {
   console.log("Something went wrong:", e);
 }
@@ -83,19 +83,13 @@ try {
   console.log("Something went wrong:", e);
 }
 try {
-  volumeOfSphere();
+  volumeOfSphere(-3);
 } catch (e) {
   console.log("Something went wrong:", e);
 }
 
 try {
   volumeOfSphere(true);
-} catch (e) {
-  console.log("Something went wrong:", e);
-}
-
-try {
-  volumeOfSphere({});
 } catch (e) {
   console.log("Something went wrong:", e);
 }
@@ -114,7 +108,7 @@ try {
   console.log("Something went wrong:", e);
 }
 try {
-  surfaceAreaOfSphere();
+  surfaceAreaOfSphere(-4);
 } catch (e) {
   console.log("Something went wrong:", e);
 }

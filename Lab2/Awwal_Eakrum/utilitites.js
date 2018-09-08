@@ -72,13 +72,11 @@ const deepEquality = (obj1, obj2) => {
 
 const uniqueElements = arr => {
   checkArr(arr, "arr");
-  if (Array.isArray(arr)) {
-    let uniqueList = [];
-    for (let i = 0, l = arr.length; i < l; i++)
-      if (uniqueList.indexOf(arr[i]) === -1 && arr[i] !== "")
-        uniqueList.push(arr[i]);
-    return console.log(`List: ${uniqueList}\n\n`);
-  }
+  let uniqueList = [];
+  for (let i = 0; i < arr.length; i++)
+    if (uniqueList.indexOf(arr[i]) === -1 && arr[i] !== "")
+      uniqueList.push(arr[i]);
+  return console.log(`List: ${uniqueList}\n\n`);
 };
 
 const countOfEachCharacterInString = str => {
