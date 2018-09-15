@@ -14,14 +14,16 @@ const chapter2 = "./chapter2.txt";
 const chapter3 = "./chapter3.txt";
 
 async function main(file) {
-  fs.stat("test1.result.json", async function(err) {
-    if (!err) {
-      console.log("results are already available");
-    } else if (err.code === "ENOENT") {
-      console.log("file or directory does not exist");
+  // Check if the file exists in the current directory.
+  fs.access("test.result.json", fs.constants.F_OK, async err => {
+    if (!err === false) {
+      console.log("doesnt exist");
       let string = await getFileAsString(file);
       let obj = await createMetrics(string);
       let saveJSON = await saveJSONToFile("./test1.result.json", obj);
+    } else {
+      console.log("exists");
+      
     }
   });
 }
