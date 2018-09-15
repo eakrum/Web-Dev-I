@@ -41,7 +41,26 @@ const saveStringToFile = async (path, text) => {
   }
 };
 
-const saveJSONToFile = async (path, obj) => {};
+async function saveJSONToFile(path, obj) {
+  if (!path || typeof path === "undefined") {
+    throw "You must provide a path";
+  }
+  if (!obj || typeof obj === "undefined") {
+    throw "You must provide an object";
+  }
+
+  if (typeof obj !== "object") {
+    throw "You must provide a valid object";
+  }
+
+  try {
+    const textConverted = JSON.stringify(obj);
+    await fs.writeFileAsync(path, textConverted, "utf-8");
+    return console.log("true");
+  } catch (error) {
+    throw error;
+  }
+}
 
 const main = async () => {
   const reader = await getFileAsString("test.txt").catch(err =>
@@ -53,4 +72,6 @@ const main = async () => {
   );
 };
 
-main();
+getFileAsJSON("sampleJSON.json");
+
+//main();
