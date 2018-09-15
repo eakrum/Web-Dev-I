@@ -72,6 +72,11 @@ const main = async () => {
   );
 };
 
-getFileAsJSON("sampleJSON.json");
 
-//main();
+module.exports = {
+  getFileAsString,
+  getFileAsString,
+  saveStringToFile,
+  saveJSONToFile,
+  
+}
