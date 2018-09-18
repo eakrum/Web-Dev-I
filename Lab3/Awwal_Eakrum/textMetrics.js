@@ -1,16 +1,9 @@
-const { saveJSONToFile } = require("./fileData");
-const confirmText = value => {
-  if (typeof value === "undefined") {
-    throw "string is undefined";
-  } else if (typeof value !== "string") {
-    throw "This is not a valid string";
-  }
-};
+const { saveJSONToFile, checkString } = require("./fileData");
 
 const createMetrics = async text => {
-  confirmText(text); 
+  checkString(text);
 
-  const resultsObj = {}; 
+  const resultsObj = {};
   const actualWords = [];
 
   const alphabet = [

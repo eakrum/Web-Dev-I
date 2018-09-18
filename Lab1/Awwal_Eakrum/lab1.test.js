@@ -3,7 +3,7 @@ const lab1 = require("./lab1");
 console.log(lab1.questionOne([1, 2, 3]));
 // should output 14
 
-console.log(lab1.questionTwo(-1));
+console.log(lab1.questionTwo(7));
 // should output 13
 
 console.log(

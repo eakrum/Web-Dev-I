@@ -8,6 +8,24 @@ const providePath = path => {
   }
 };
 
+const checkString = value => {
+  if (typeof value === "undefined") {
+    throw "string is undefined";
+  } else if (typeof value !== "string") {
+    throw "This is not a valid string";
+  } else if (!value) {
+    throw "You must provide a string";
+  }
+};
+
+const checkObject = value => {
+  if (!value || typeof value === "undefined") {
+    throw "No object was provided";
+  } else if (typeof value !== "object") {
+    throw "A valid object was not provided";
+  }
+};
+
 const getFileAsString = async path => {
   providePath(path);
   try {
@@ -22,7 +40,7 @@ const getFileAsJSON = async path => {
   providePath(path);
 
   try {
-    const stringFile = await fs.readFileAsync(path, "utf-8");
+    const stringFile = await fs.readFileAsync(path, "utf8");
     const asObject = JSON.parse(stringFile);
     return asObject;
   } catch (error) {
@@ -31,8 +49,7 @@ const getFileAsJSON = async path => {
 };
 const saveStringToFile = async (path, text) => {
   providePath(path);
-  if (!text) throw "You must provide a text to insert";
-  if (typeof text !== "string") throw "You must provide a valid string";
+  checkString(text);
   let data = new Uint8Array(Buffer.from(text));
   try {
     writtenFile = await fs.writeFileAsync(path, text);
@@ -45,17 +62,11 @@ const saveStringToFile = async (path, text) => {
 
 async function saveJSONToFile(path, obj) {
   providePath(path);
-  if (!obj || typeof obj === "undefined") {
-    throw "No object was provided";
-  }
-
-  if (typeof obj !== "object") {
-    throw "A valid object was not provided";
-  }
+  checkObject(obj);
 
   try {
-    const textConverted = JSON.stringify(obj);
-    await fs.writeFileAsync(path, textConverted, "utf-8");
+    const newJson = JSON.stringify(obj);
+    await fs.writeFileAsync(path, newJson, "utf8");
     return true;
   } catch (error) {
     throw error;
@@ -66,5 +77,6 @@ module.exports = {
   getFileAsString,
   getFileAsString,
   saveStringToFile,
-  saveJSONToFile
+  saveJSONToFile,
+  checkString
 };
