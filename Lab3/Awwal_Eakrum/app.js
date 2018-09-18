@@ -21,7 +21,7 @@ function main(file) {
   // Check if the file exists in the current directory.
   fs.access(resultJson, fs.constants.F_OK, async err => {
     if (!err === false) {
-      console.log("Results file doesn't exist yet, processing requests...");
+      console.log("Results file doesn't, processing requests...");
       let string = await getFileAsString(file).catch(err => {
         console.log("Something went wrong: ", err);
       });
@@ -31,7 +31,6 @@ function main(file) {
       let saveJSON = await saveJSONToFile(resultJson, obj).catch(err => {
         console.log("Something went wrong: ", err);
       });
-      console.log("done");
     } else {
       console.log("Results file already exists, check directory");
     }
@@ -39,3 +38,5 @@ function main(file) {
 }
 
 main(chapter1);
+main(chapter2);
+main(chapter3);
