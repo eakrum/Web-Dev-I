@@ -1,4 +1,4 @@
-const { saveJSONToFile, checkString } = require("./fileData");
+const { checkString } = require("./fileData");
 
 function sortObj(obj) {
   var ordered = {};
