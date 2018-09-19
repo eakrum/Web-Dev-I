@@ -77,17 +77,17 @@ const createMetrics = async text => {
       space = "";
     }
 
-    vowels.forEach(value => {
-      if (textLetter === value) {
+    for (let i = 0; i < vowels.length; i++) {
+      if (textLetter === vowels[i]) {
         vowelsVal = vowelsVal + 1;
       }
-    });
+    }
 
-    consonants.forEach(value => {
-      if (textLetter === value) {
+    for (let i = 0; i < consonants.length; i++) {
+      if (textLetter === consonants[i]) {
         consenentsVal = consenentsVal + 1;
       }
-    });
+    }
   }
 
   const wordsVal = actualWords.filter(value => {
@@ -104,26 +104,36 @@ const createMetrics = async text => {
 
   const averageWordLength = () => {
     let sum = 0;
-    wordsVal.forEach(value => {
-      sum = sum + value.length;
-    });
+    for (let i = 0; i < wordsVal.length; i++) {
+      sum = sum + wordsVal[i].length;
+    }
 
     return sum / wordsVal.length;
   };
 
   const wordsObject = () => {
-    const placerObject = {};
-    uniqueWords.forEach(uniqueValue => {
+    const theObject = {};
+    //test this
+    for (let i = 0; i < uniqueWords.length; i++) {
       let sum = 0;
-      wordsVal.forEach(totalValue => {
-        if (totalValue === uniqueValue) {
+      for (let j = 0; j < uniqueWords.length; j++) {
+        if (totalValue === uniqueWords[i].length) {
           sum = sum + 1;
         }
-      });
-      placerObject[uniqueValue] = sum;
-    });
+      }
+    }
 
-    return placerObject;
+    // uniqueWords.forEach(uniqueValue => {
+    //   let sum = 0;
+    //   wordsVal.forEach(totalValue => {
+    //     if (totalValue === uniqueValue) {
+    //       sum = sum + 1;
+    //     }
+    //   });
+    //   theObject[uniqueValue] = sum;
+    // });
+
+    return theObject;
   };
 
   resultsObj["totalLetters"] = letters;
@@ -138,6 +148,12 @@ const createMetrics = async text => {
 
   return resultsObj;
 };
+
+async function main() {
+  const reader = await createMetrics("aeiou, b, c,d,e");
+  console.log(reader);
+}
+main();
 
 module.exports = {
   createMetrics
