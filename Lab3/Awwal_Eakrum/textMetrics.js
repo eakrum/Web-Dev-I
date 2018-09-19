@@ -1,4 +1,14 @@
-const { saveJSONToFile, checkString } = require("./fileData");
+const { checkString } = require("./fileData");
+
+function sortObj(obj) {
+  var ordered = {};
+  Object.keys(obj)
+    .sort()
+    .forEach(function(key) {
+      ordered[key] = obj[key];
+    });
+  return ordered;
+}
 
 const createMetrics = async text => {
   checkString(text);
@@ -62,7 +72,7 @@ const createMetrics = async text => {
   let letters = 0;
   let nonLetters = 0;
   let vowelsVal = 0;
-  let consenentsVal = 0;
+  let consonantsVal = 0;
   let space = "";
 
   for (let i = 0; i <= text.length; i++) {
@@ -85,7 +95,7 @@ const createMetrics = async text => {
 
     for (let i = 0; i < consonants.length; i++) {
       if (textLetter === consonants[i]) {
-        consenentsVal = consenentsVal + 1;
+        consonantsVal = consonantsVal + 1;
       }
     }
   }
@@ -112,35 +122,27 @@ const createMetrics = async text => {
   };
 
   const wordsObject = () => {
-    const theObject = {};
-    //test this
+    let nonAlphaDictionary = {};
+    let dictionary;
     for (let i = 0; i < uniqueWords.length; i++) {
       let sum = 0;
-      for (let j = 0; j < uniqueWords.length; j++) {
-        if (totalValue === uniqueWords[i].length) {
+      for (let j = 0; j < wordsVal.length; j++) {
+        if (wordsVal[j] === uniqueWords[i]) {
           sum = sum + 1;
         }
       }
+      nonAlphaDictionary[uniqueWords[i]] = sum;
+      dictionary = sortObj(nonAlphaDictionary);
     }
 
-    // uniqueWords.forEach(uniqueValue => {
-    //   let sum = 0;
-    //   wordsVal.forEach(totalValue => {
-    //     if (totalValue === uniqueValue) {
-    //       sum = sum + 1;
-    //     }
-    //   });
-    //   theObject[uniqueValue] = sum;
-    // });
-
-    return theObject;
+    return dictionary;
   };
 
   resultsObj["totalLetters"] = letters;
   resultsObj["totalNonLetters"] = nonLetters - 1;
-  resultsObj["totalVowels"] = vowelsVal;
-  resultsObj["totalConsonants"] = consenentsVal;
   resultsObj["totalWords"] = wordsVal.length;
+  resultsObj["totalVowels"] = vowelsVal;
+  resultsObj["totalConsonants"] = consonantsVal;
   resultsObj["uniqueWords"] = uniqueWords.length;
   resultsObj["longWords"] = longWords.length;
   resultsObj["averageWordLength"] = averageWordLength();
@@ -148,12 +150,6 @@ const createMetrics = async text => {
 
   return resultsObj;
 };
-
-async function main() {
-  const reader = await createMetrics("aeiou, b, c,d,e");
-  console.log(reader);
-}
-main();
 
 module.exports = {
   createMetrics
