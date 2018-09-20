@@ -1,5 +1,5 @@
-const mongoCollections = require("./mongoCollections");
-const todos = mongoCollections.todos;
+const mongoCollection = require("./mongoCollection");
+const todos = mongoCollection.todos;
 const uuidv4 = require("uuid/v4");
 
 async function createTask(title, description) {
@@ -24,8 +24,7 @@ async function createTask(title, description) {
 
 async function getAllTasks() {
   const todoCollection = await todos();
-  const todos = await todoCollection.find({}).toArray();
-  return todos;
+  return await todoCollection.find({}).toArray();
 }
 
 async function getTask(id) {
