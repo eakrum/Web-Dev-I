@@ -3,12 +3,15 @@ const todos = mongoCollection.todos;
 const uuidv4 = require("uuid/v4");
 
 async function createTask(title, description) {
-  if (!title) throw "You must provide a title";
-  if (!description) throw "You must provide a description";
+  if (!title) {
+    throw "No title was provided";
+  }
 
-  const todoCollection = await todos();
+  if (!description) {
+    throw "No description was provided";
+  }
 
-  let newToDo = {
+  const task = {
     _id: uuidv4(),
     title: title,
     description: description,
@@ -16,10 +19,13 @@ async function createTask(title, description) {
     completedAt: null
   };
 
-  const newTodo = await todoCollection.insertOne(newToDo);
-  if (newTodo.insertedCount === 0) throw "Unable to create Task";
+  const todoCollection = await todos(); 
 
-  return newToDo;
+  const newTask = await todoCollection.insertOne(task); 
+  if (newTask.insertedCount === 0) throw "Could not create the task";
+
+  const newId = newTask.insertedId;
+  return await getTask(newId);
 }
 
 async function getAllTasks() {
@@ -36,13 +42,14 @@ async function getTask(id) {
 
 async function completeTask(taskId) {
   const todoCollection = await todos();
-  const updatedTask = await todoCollection.updateOne(
-    { _id: taskId },
-    {
-      completed: true,
-      completedAt: "time placeholder"
-    }
-  );
+  let time = new Date();
+
+  let update = {
+    completed: true,
+    completedAt: time
+  };
+
+  const updatedTask = await todoCollection.updateOne({ _id: taskId }, {$set: update});  
 
   if (updatedTask.modifiedCount === 0) {
     throw "unable to update task";
@@ -60,10 +67,18 @@ async function removeTask(id) {
   }
 }
 
+
+//not part of assignment just used this for debugging
+async function deleteAll() {
+  const todoCollection = await todos();
+  return await todoCollection.deleteMany({});
+}
+
 module.exports = {
   createTask,
   getAllTasks,
   getTask,
   completeTask,
-  removeTask
+  removeTask,
+  deleteAll
 };

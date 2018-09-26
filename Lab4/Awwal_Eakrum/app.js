@@ -3,8 +3,11 @@ const {
   getAllTasks,
   getTask,
   completeTask,
-  removeTask
+  removeTask,
+  deleteAll
 } = require("./todo");
+
+const connection = require("./mongoConnection");
 
 const task1 = {
   title: "Ponder Dinosaurs",
@@ -17,36 +20,30 @@ const task2 = {
   description: "Should we revive Helix?"
 };
 
-//TODO: how do we dynamically get the task ID without hardcoding it into args?
 async function main() {
-  insertTask1 = await createTask(task1.title, task1.description).catch(err => {
-    console.log("Something went wrong: ", err);
-  });
-  console.log(insertTask1);
-  insertTask2 = await createTask(task2.title, task2.description).catch(err => {
-    console.log("Something went wrong: ", err);
-  });
+  insertTask1 = await createTask(task1.title, task1.description);
+  insertTask2 = await createTask(task2.title, task2.description);
 
-  queryAll = await getAllTasks().catch(err => {
-    console.log("something went wrong: ", err);
-  });
+  queryAll = await getAllTasks();
   console.log(queryAll);
-  await removeTask("firstTaskID").catch(err => {
-    console.log("something went wrong: ", err);
-  });
+  await removeTask(insertTask1._id);
 
-  queryAll2 = await getAllTasks().catch(err => {
-    console.log("Something went wrong: ", err);
-  });
+  queryAll2 = await getAllTasks();
 
-  completedTask = await completeTask("secondTaskID").catch(err => {
-    console.log("Something went wrong: ", err);
-  });
-  logCompletedTask = await getTask("completedTaskID").catch(err => {
-    console.log("Something went wrong: ", err);
-  });
+  completedTask = await completeTask(insertTask2._id);
+  logCompletedTask = await getTask(insertTask2._id);
+  console.log(logCompletedTask);
 
   console.log("done");
+  const db = await connection();
+  await db.serverConfig.close();
+  console.log("database closed.");
 }
 
-main();
+
+
+
+
+main().catch(err => {
+  console.log(err);
+});
