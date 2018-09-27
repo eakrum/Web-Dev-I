@@ -34,6 +34,7 @@ async function getAllTasks() {
 }
 
 async function getTask(id) {
+  if (!id) throw "You must provide a task ID"
   const todoCollection = await todos();
   const todo = await todoCollection.findOne({ _id: id });
   if (todo === null) throw "Task with that id could not be found";
@@ -41,6 +42,7 @@ async function getTask(id) {
 }
 
 async function completeTask(taskId) {
+  if (!taskId) throw "Task ID missing"
   const todoCollection = await todos();
   let time = new Date();
 
