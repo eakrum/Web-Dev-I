@@ -40,10 +40,6 @@ async function main() {
   console.log("database closed.");
 }
 
-
-
-
-
 main().catch(err => {
   console.log(err);
 });

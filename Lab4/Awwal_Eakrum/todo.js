@@ -2,6 +2,10 @@ const mongoCollection = require("./mongoCollection");
 const todos = mongoCollection.todos;
 const uuidv4 = require("uuid/v4");
 
+checkString = arg => {
+  if (typeof arg != "string") throw "Argument must be a string";
+};
+
 async function createTask(title, description) {
   if (!title) {
     throw "No title was provided";
@@ -11,6 +15,9 @@ async function createTask(title, description) {
     throw "No description was provided";
   }
 
+  checkString(title);
+  checkString(description);
+
   const task = {
     _id: uuidv4(),
     title: title,
@@ -19,9 +26,9 @@ async function createTask(title, description) {
     completedAt: null
   };
 
-  const todoCollection = await todos(); 
+  const todoCollection = await todos();
 
-  const newTask = await todoCollection.insertOne(task); 
+  const newTask = await todoCollection.insertOne(task);
   if (newTask.insertedCount === 0) throw "Could not create the task";
 
   const newId = newTask.insertedId;
@@ -34,7 +41,8 @@ async function getAllTasks() {
 }
 
 async function getTask(id) {
-  if (!id) throw "You must provide a task ID"
+  if (!id) throw "You must provide a task ID";
+  checkString(id);
   const todoCollection = await todos();
   const todo = await todoCollection.findOne({ _id: id });
   if (todo === null) throw "Task with that id could not be found";
@@ -42,7 +50,8 @@ async function getTask(id) {
 }
 
 async function completeTask(taskId) {
-  if (!taskId) throw "Task ID missing"
+  if (!taskId) throw "Task ID missing";
+  checkString(taskId);
   const todoCollection = await todos();
   let time = new Date();
 
@@ -51,7 +60,10 @@ async function completeTask(taskId) {
     completedAt: time
   };
 
-  const updatedTask = await todoCollection.updateOne({ _id: taskId }, {$set: update});  
+  const updatedTask = await todoCollection.updateOne(
+    { _id: taskId },
+    { $set: update }
+  );
 
   if (updatedTask.modifiedCount === 0) {
     throw "unable to update task";
@@ -61,6 +73,7 @@ async function completeTask(taskId) {
 }
 
 async function removeTask(id) {
+  checkString(id);
   if (!id) throw "You must provide a task ID to remove a task";
   const todoCollection = await todos();
   const removeTodo = await todoCollection.removeOne({ _id: id });
@@ -68,7 +81,6 @@ async function removeTask(id) {
     throw "Unable to remove task";
   }
 }
-
 
 //not part of assignment just used this for debugging
 async function deleteAll() {
