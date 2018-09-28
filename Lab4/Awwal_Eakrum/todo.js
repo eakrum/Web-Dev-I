@@ -15,9 +15,6 @@ async function createTask(title, description) {
     throw "No description was provided";
   }
 
-  checkString(title);
-  checkString(description);
-
   const task = {
     _id: uuidv4(),
     title: title,
@@ -73,8 +70,8 @@ async function completeTask(taskId) {
 }
 
 async function removeTask(id) {
-  checkString(id);
   if (!id) throw "You must provide a task ID to remove a task";
+  checkString(id);
   const todoCollection = await todos();
   const removeTodo = await todoCollection.removeOne({ _id: id });
   if (removeTodo.deletedCount === 0) {
