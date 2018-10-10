@@ -10,24 +10,27 @@ async function getAllRecipes() {
 
 async function getRecipeById(id) {
   if (!id) throw "You must provide a recipe ID";
-  console.log(typeof id);
   const recipeCollection = await recipes();
   const reqRecipe = await recipeCollection.findOne({ _id: id });
   if (reqRecipe === null) throw "recipe with that id could not be found";
   return reqRecipe;
 }
 
-async function createRecipe(data) {
-  if (!data) {
-    throw "No data given";
-  }
+async function createRecipe(title, ingredients, steps) {
+  const postedRecipe = {
+    _id: uuid(),
+    title: title,
+    ingredients: ingredients,
+    steps: steps
+  };
 
   const recipeCollection = await recipes();
 
-  const newRecipe = await recipeCollection.insertOne(data);
-  if (data.insertedCount === 0) throw "Could not create the recipe";
-
-  return await getRecipes();
+  const newRecipe = await recipeCollection.insertOne(postedRecipe);
+  if (newRecipe.insertedCount === 0) throw "Could not create the recipe";
+  const newId = newRecipe.insertedId;
+  console.log("new id, ", newId);
+  return await getRecipeById(newId);
 }
 
 async function deleteRecipeById(id) {
