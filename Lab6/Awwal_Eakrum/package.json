@@ -1,0 +1,15 @@
+{
+  "name": "cs546lab6",
+  "version": "1.0.0",
+  "description": "lab 6",
+  "main": "server.js",
+  "scripts": {
+    "test": "npm start",
+    "start": "node server.js"
+  },
+  "author": "Eakrum Awwal CWID 10393806",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.3"
+  }
+}
