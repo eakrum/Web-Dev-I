@@ -1,7 +1,13 @@
 {
-    "name": "Your Name",
-    "cwid": "Your CWID",
-    "biography": "2 biography paragraphs separated by a new line character (\n).",
-    "favoriteShows": ["array", "of", "favorite", "shows"],
-    "hobbies": ["array", "of", "hobbies"]
-  }
+  "name": "Eakrum Awwal",
+  "cwid": "10393806",
+  "biography": "A lot of passions lie within building applications. I love to take on new projects and have actually started making my own mobile streaming app in regards to the realm of fitness. Computer Science has such a wide array of applications and technologies, and I love to leverage these aspects to teach myself new things as well as build cool products. At the moment I'm well versed in front end facing technologies and frameworks but also continuing to build my knowledge on backend systems and server side applications. \n HELLOOOOO NEW PARA",
+  "favoriteShows": [
+    "Game of Thrones",
+    "Mr. Robot",
+    "Westworld",
+    "The Punisher",
+    "The Office"
+  ],
+  "hobbies": ["Basketball and Football", "Cars", "Fitness", "Freelance Coding"]
+}

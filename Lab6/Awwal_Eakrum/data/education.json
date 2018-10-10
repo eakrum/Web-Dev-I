@@ -1,4 +1,20 @@
-{
-    "storyTitle": "Story Title",
-    "story": "Your story.\nSimply use line breaks for paragraphs.\nLike this."
+[
+  {
+    "schoolName": "Anthony Wayne Middle School",
+    "degree": "Middle School Degree",
+    "favoriteClass": "Computer cycles",
+    "favoriteMemory": "8th grade dance"
+  },
+  {
+    "schoolName": "Wayne Valley High School",
+    "degree": "High School Degree",
+    "favoriteClass": "C#",
+    "favoriteMemory": "Prom"
+  },
+  {
+    "schoolName": "Stevens Institute of Technology",
+    "degree": "Bachelors of Engineering",
+    "favoriteClass": "Web Development II",
+    "favoriteMemory": "Meeting my friends"
   }
+]
