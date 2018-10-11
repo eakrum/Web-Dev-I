@@ -2,6 +2,10 @@ const mongoCollections = require("../config/mongoCollections");
 const recipes = mongoCollections.recipes;
 const uuid = require("node-uuid");
 
+//TODO make sure all data follows the required format?
+//TODO make sure getAllRecipes only returns the title and ID in array format
+//TODO add PUT and PATCH database functionality as outlined in recipeRoutes.js
+
 async function getAllRecipes() {
   const recipeCollection = await recipes();
   const allRecipes = await recipeCollection.find({}).toArray();
