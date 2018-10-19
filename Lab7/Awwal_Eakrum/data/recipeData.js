@@ -2,14 +2,18 @@ const mongoCollections = require("../config/mongoCollections");
 const recipes = mongoCollections.recipes;
 const uuid = require("node-uuid");
 
-//TODO make sure all data follows the required format?
-//TODO make sure getAllRecipes only returns the title and ID in array format
-//TODO add PUT and PATCH database functionality as outlined in recipeRoutes.js
 
 async function getAllRecipes() {
+  let arrayRecipes = [];
   const recipeCollection = await recipes();
   const allRecipes = await recipeCollection.find({}).toArray();
-  return allRecipes;
+  for (let i = 0; i < allRecipes.length; i++) {
+    const testerObject = {};
+    testerObject["_id"] = allRecipes[i]._id;
+    testerObject["title"] = allRecipes[i].title;
+    arrayRecipes.push(testerObject);
+  }
+  return arrayRecipes;
 }
 
 async function getRecipeById(id) {
@@ -21,6 +25,13 @@ async function getRecipeById(id) {
 }
 
 async function createRecipe(title, ingredients, steps) {
+  if (!title || typeof title !== "string")
+    throw "Title was either not provided or isnt a string";
+  if (!ingredients || !Array.isArray(ingredients))
+    throw "Ingredients was either not provided or isnt a type of array";
+  if (!steps || !Array.isArray(steps))
+    throw "Ingredients was either not provided or isnt a type of array";
+
   const postedRecipe = {
     _id: uuid(),
     title: title,
@@ -37,18 +48,88 @@ async function createRecipe(title, ingredients, steps) {
   return await getRecipeById(newId);
 }
 
-async function deleteRecipeById(id) {
-  if (!id) throw "You must provide a recipe ID to remove a recipe";
+const deleteRecipeById = async id => {
+  if (!id) throw "No id was provided";
+
   const recipeCollection = await recipes();
   const removeRecipe = await recipeCollection.removeOne({ _id: id });
-  if (removeTodo.deletedCount === 0) {
-    throw "Unable to remove recipe";
+
+  if (removeRecipe.deletedCount === 0) {
+    throw `Could not delete recipe with id of ${id}`;
   }
-}
+};
+
+const updateRecipe = async (id, updatedRecipe) => {
+  if (!id) throw "No id was provided";
+  if (!updatedRecipe) throw "No id was provided";
+
+  const recipeCollection = await recipes();
+  const updatedData = {};
+
+  if (updatedRecipe.title) {
+    updatedData.title = updatedRecipe.title;
+  }
+
+  if (updatedRecipe.ingredients) {
+    updatedData.ingredients = updatedRecipe.ingredients;
+  }
+
+  if (updatedRecipe.steps) {
+    updatedData.steps = updatedRecipe.steps;
+  }
+
+  let updatingRecipe = {
+    $set: updatedData
+  };
+
+  const updateInfo = await recipeCollection.updateOne(
+    { _id: id },
+    updatingRecipe
+  ); //updates task with recipe id, and object
+  if (updateInfo.modifiedCount === 0)
+    throw "could not update recipe sucessfully";
+
+  return await getRecipeById(id);
+};
+
+const patchRecipe = async (id, updatedRecipe) => {
+  if (!id) throw "No id was provided";
+  if (!updatedRecipe) throw "No id was provided";
+
+  const recipeCollection = await recipes();
+  const updatedData = {};
+
+  if (updatedRecipe.title) {
+    updatedData.title = updatedRecipe.title;
+  }
+
+  if (updatedRecipe.ingredients) {
+    updatedData.ingredients = updatedRecipe.ingredients;
+  }
+
+  if (updatedRecipe.steps) {
+    updatedData.steps = updatedRecipe.steps;
+  }
+
+  let updatingRecipe = {
+    $set: updatedData
+  };
+
+  const updateInfo = await recipeCollection.updateOne(
+    { _id: id },
+    updatingRecipe
+  ); //updates task with recipe id, and object
+  if (updateInfo.modifiedCount === 0)
+    throw "could not update recipe sucessfully";
+
+  return await getRecipeById(id);
+};
 
 module.exports = {
   getAllRecipes,
   getRecipeById,
   createRecipe,
-  deleteRecipeById
+  deleteRecipeById,
+  updateRecipe,
+  patchRecipe
 };
