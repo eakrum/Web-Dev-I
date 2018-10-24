@@ -1,0 +1,59 @@
+html,
+body {
+  font-size: 14pt;
+}
+
+body {
+  background: #001e4f;
+  font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+}
+
+main {
+  max-width: 75%;
+  margin: auto;
+}
+
+header {
+  border-bottom: 1px solid #afafaf11;
+}
+
+h1 {
+  color: #fff;
+  margin-bottom: 5px;
+  font-size: 2rem;
+}
+
+p {
+  color: #fff;
+  font-size: 1rem;
+  line-height: 2;
+}
+
+label {
+  color: #fff;
+}
+
+.success {
+  color: #0ebd37;
+}
+
+.failure {
+  color: #ff0000;
+}
+
+.error {
+  color: #c242f4;
+}
+
+.post {
+  width: 75%;
+  border-bottom: 1px dashed #333;
+}
+
+label {
+  font-weight: bold;
+}
+
+button {
+  cursor: pointer;
+}
