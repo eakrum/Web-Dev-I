@@ -3,6 +3,7 @@ const bodyParser = require("body-parser");
 const app = express();
 const static = express.static(__dirname + "/public");
 const palidrome = require("./js/isPalindrome.js");
+const path = require("path");
 
 const exphbs = require("express-handlebars");
 
@@ -19,14 +20,18 @@ app.get("/", function(req, res) {
   });
 });
 
+app.get("/public/site.css", async (req, res) => {
+  res.sendFile(path.resolve("public/site.css"));
+});
+
 app.post("/result", function(req, res) {
   if (req.body["text-to-test"]) {
-    var the_text = req.body["text-to-test"]
+    let the_text = req.body["text-to-test"]
       .toLowerCase()
       .replace(/[.,\/#!\'\`\’$%\^&\*;?:{}=\-_`~()]/g, "")
       .replace(/\s+/g, "")
       .replace("'", "");
-    var isBool = palidrome.isPalindrome(the_text);
+    let isBool = palidrome.isPalindrome(the_text);
 
     if (isBool) {
       //render success
@@ -51,7 +56,8 @@ app.post("/result", function(req, res) {
     res.render("palidrome/result", {
       title: "The Palindrome Results!",
       status: "error",
-      palidrome_response: "ERROR: Must enter a valid string (not empty) for a palindrome to be checked"
+      palidrome_response:
+        "ERROR: Must enter a valid string (not empty) for a palindrome to be checked"
     });
   }
 });
