@@ -35,7 +35,9 @@ app.post("/result", function(req, res) {
 
     if (isBool) {
       //render success
-      res.render("palidrome/result", {
+      res.render(
+        
+        "palidrome/result", {
         title: "The Palindrome Results!",
         status: "success",
         status_message: "Proposed string is a palindome",

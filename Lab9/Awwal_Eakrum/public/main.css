@@ -1,0 +1,67 @@
+header {
+  font-size: 25px;
+  font-family: "Courier New", Courier, monospace;
+  text-shadow: 2px 2px 8px #89f9ff;
+}
+
+footer {
+  font-family: "Comic Sans MS", cursive, sans-serif;
+  border-radius: 25px;
+  border: 3px solid rgb(3, 1, 0);
+  padding-top: 5px;
+  padding-left: 15px;
+  width: 280px;
+}
+
+body {
+  background: #89b6ff;
+  font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+  max-width: 75%;
+  margin: auto;
+}
+
+p {
+  font-size: 25px;
+  color: green;
+  border-style: solid;
+  border-width: 3px;
+  border-color: black;
+}
+
+ol {
+  font-size: 30px;
+  line-height: 50px;
+}
+
+li {
+  text-decoration: underline;
+}
+
+textarea {
+  font-size: 20px;
+  box-shadow: 5px 5px 10px grey;
+}
+
+button {
+  font-size: 20px;
+  background-color: white;
+  border: 2px solid black;
+  color: black;
+  text-align: center;
+  position: relative;
+  bottom: 5px;
+  left: 5px;
+}
+
+button:hover {
+  background-color: black;
+  color: white;
+}
+
+.is-palindrome {
+  color: #0000ff;
+}
+
+.not-palindrome {
+  color: #ff0000;
+}
